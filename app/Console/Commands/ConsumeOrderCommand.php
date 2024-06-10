@@ -49,6 +49,9 @@ class ConsumeOrderCommand extends Command
             $order_id = $data['id'];
 
             $order = Order::find($order_id);
+            $product = Product::find($order->product->id);
+            $increment = $product->qty + 1;
+            $product->update(['qty' => $increment]);
             $order->delete();
 
             echo ' [x] Berhasil Membatalkan Pemesanan id ', $order_id, "\n";
